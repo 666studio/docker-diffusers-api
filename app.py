@@ -68,6 +68,31 @@ class DummySafetyChecker:
     def __call__(images, clip_input):
         return images, False
 
+#@title Load the newly learned embeddings into CLIP
+def load_learned_embed_in_clip(learned_embeds_path, text_encoder, tokenizer, token=None):
+  loaded_learned_embeds = torch.load(learned_embeds_path, map_location="cpu")
+  
+  # separate token and the embeds
+  trained_token = list(loaded_learned_embeds.keys())[0]
+  embeds = loaded_learned_embeds[trained_token]
+
+  # cast to dtype of text_encoder
+  dtype = text_encoder.get_input_embeddings().weight.dtype
+  embeds.to(dtype)
+
+  # add the token in tokenizer
+  token = token if token is not None else trained_token
+  num_added_tokens = tokenizer.add_tokens(token)
+  if num_added_tokens == 0:
+    raise ValueError(f"The tokenizer already contains the token {token}. Please pass a different `token` that is not already in the tokenizer.")
+  
+  # resize the token embeddings
+  text_encoder.resize_token_embeddings(len(tokenizer))
+  
+  # get the id for the token and assign the embeds
+  token_id = tokenizer.convert_tokens_to_ids(token)
+  text_encoder.get_input_embeddings().weight.data[token_id] = embeds
+
 
 # Init is ran on server startup
 # Load your model to GPU as a global variable here using the variable name "model"
@@ -105,6 +130,7 @@ def init():
 
     send("init", "done")
     initTime = get_now() - initStart
+    
 
 
 def decodeBase64Image(imageStr: str, name: str) -> PIL.Image:
@@ -175,6 +201,8 @@ def inference(all_inputs: dict) -> dict:
         pipeline = pipelines.get(call_inputs.get("PIPELINE"))
     else:
         pipeline = model
+                
+    load_learned_embed_in_clip("/root/.cache/checkpoints/depthmap.bin", pipeline.text_encoder, pipeline.tokenizer)
 
     pipeline.scheduler = getScheduler(MODEL_ID, call_inputs.get("SCHEDULER", None))
     if pipeline.scheduler == None:

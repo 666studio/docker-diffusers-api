@@ -96,6 +96,7 @@ ENV HF_AUTH_TOKEN=${HF_AUTH_TOKEN}
 # "CompVis/stable-diffusion-v1-4", "hakurei/waifu-diffusion",
 # "stabilityai/stable-diffusion-2",
 # "stabilityai/stable-diffusion-2-inpainting" etc.
+# ARG MODEL_ID="stabilityai/stable-diffusion-2"
 ARG MODEL_ID="stabilityai/stable-diffusion-2"
 ENV MODEL_ID=${MODEL_ID}
 
@@ -108,7 +109,7 @@ ADD precision.py .
 ARG PIPELINE="ALL"
 ENV PIPELINE=${PIPELINE}
 
-ARG USE_DREAMBOOTH=0
+ARG USE_DREAMBOOTH=1
 ENV USE_DREAMBOOTH=${USE_DREAMBOOTH}
 
 ARG AWS_ACCESS_KEY_ID
