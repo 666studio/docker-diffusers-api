@@ -13,5 +13,5 @@ if __name__ == "__main__":
             storage = Storage(CHECKPOINT_URL)
             storage.download_file(fname)
 
-    storage = Storage("https://huggingface.co/sd-concepts-library/depthmap/blob/main/learned_embeds.bin")
-    storage.download_file(CHECKPOINT_DIR + "/depthmap.bin")
+    storage = Storage("https://huggingface.co/sd-concepts-library/one-line-drawing/blob/main/learned_embeds.bin")
+    storage.download_file(CHECKPOINT_DIR + "/lineart.bin")

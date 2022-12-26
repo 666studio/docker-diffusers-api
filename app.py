@@ -201,8 +201,8 @@ def inference(all_inputs: dict) -> dict:
         pipeline = pipelines.get(call_inputs.get("PIPELINE"))
     else:
         pipeline = model
-                
-    load_learned_embed_in_clip("/root/.cache/checkpoints/depthmap.bin", pipeline.text_encoder, pipeline.tokenizer)
+
+    load_learned_embed_in_clip("/root/.cache/checkpoints/lineart.bin", pipeline.text_encoder, pipeline.tokenizer)
 
     pipeline.scheduler = getScheduler(MODEL_ID, call_inputs.get("SCHEDULER", None))
     if pipeline.scheduler == None:
