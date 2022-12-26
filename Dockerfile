@@ -140,6 +140,8 @@ ARG _CONVERT_SPECIAL
 ENV _CONVERT_SPECIAL=${_CONVERT_SPECIAL}
 ADD convert-to-diffusers.py .
 RUN python3 convert-to-diffusers.py
+
+RUN wget -q -O /root/.cache/checkpoints/lineart.bin https://huggingface.co/sd-concepts-library/one-line-drawing/blob/main/learned_embeds.bin
 # RUN rm -rf checkpoints
 
 # Add your model weight files 

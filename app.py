@@ -197,8 +197,9 @@ def inference(all_inputs: dict) -> dict:
                 }
             }
 
-    print("checkpoint folder", os.system("ls -l /root/.cache/checkpoints/"))
-    print("load model", model, model.text_encoder, model.tokenizer)
+    print("checkpoint folder", os.listdir("/root/.cache/checkpoints/"))
+    print([(f,os.stat(os.path.join("/root/.cache/checkpoints/", f)).st_size) for f in os.listdir("/root/.cache/checkpoints/")])
+    print("load model", model.text_encoder, model.tokenizer)
     load_learned_embed_in_clip("/root/.cache/checkpoints/lineart.bin", model.text_encoder, model.tokenizer)
 
     if PIPELINE == "ALL":

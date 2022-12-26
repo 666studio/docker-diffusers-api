@@ -12,6 +12,3 @@ if __name__ == "__main__":
         if not os.path.isfile(fname):
             storage = Storage(CHECKPOINT_URL)
             storage.download_file(fname)
-
-    storage = Storage("https://huggingface.co/sd-concepts-library/one-line-drawing/blob/main/learned_embeds.bin")
-    storage.download_file(CHECKPOINT_DIR + "/lineart.bin")
