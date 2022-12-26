@@ -57,3 +57,7 @@ def download_model():
 
 if __name__ == "__main__":
     download_model()
+    CHECKPOINT_DIR = "/root/.cache/checkpoints"
+    if not os.path.isdir(CHECKPOINT_DIR):
+        os.makedirs(CHECKPOINT_DIR)
+
