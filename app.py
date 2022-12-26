@@ -70,7 +70,10 @@ class DummySafetyChecker:
 
 #@title Load the newly learned embeddings into CLIP
 def load_learned_embed_in_clip(learned_embeds_path, text_encoder, tokenizer, token=None):
+  print("embeds path", learned_embeds_path)
+  print(os.stat(learned_embeds_path).st_size, torch.__version__)
   loaded_learned_embeds = torch.load(learned_embeds_path, map_location="cpu")
+  print("loaded")
   
   # separate token and the embeds
   trained_token = list(loaded_learned_embeds.keys())[0]
@@ -197,15 +200,14 @@ def inference(all_inputs: dict) -> dict:
                 }
             }
 
-    print("checkpoint folder", os.listdir("/root/.cache/checkpoints/"))
-    print([(f,os.stat(os.path.join("/root/.cache/checkpoints/", f)).st_size) for f in os.listdir("/root/.cache/checkpoints/")])
-    print("load model", model.text_encoder, model.tokenizer)
-    load_learned_embed_in_clip("/root/.cache/checkpoints/lineart.bin", model.text_encoder, model.tokenizer)
 
     if PIPELINE == "ALL":
         pipeline = pipelines.get(call_inputs.get("PIPELINE"))
     else:
         pipeline = model
+
+    print("checkpoint folder", [(f, os.stat(os.path.join("/root/.cache/checkpoints/", f)).st_size) for f in os.listdir("/root/.cache/checkpoints/")])
+    load_learned_embed_in_clip("/root/.cache/checkpoints/lineart.bin", pipeline.text_encoder, pipeline.tokenizer)
 
     pipeline.scheduler = getScheduler(MODEL_ID, call_inputs.get("SCHEDULER", None))
     if pipeline.scheduler == None:
