@@ -8,6 +8,7 @@ from transformers import CLIPTextModel, CLIPTokenizer
 from precision import revision
 from utils import Storage
 import subprocess
+import torch
 
 MODEL_ID = os.environ.get("MODEL_ID")
 MODEL_URL = os.environ.get("MODEL_URL")

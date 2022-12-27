@@ -1,6 +1,5 @@
 import os
 from utils import Storage
-import torch
 
 CHECKPOINT_URL = os.environ.get("CHECKPOINT_URL", None)
 
