@@ -57,7 +57,7 @@ def download_model():
 
 if __name__ == "__main__":
     download_model()
-    CHECKPOINT_DIR = "/root/.cache/checkpoints"
-    if not os.path.isdir(CHECKPOINT_DIR):
-        os.makedirs(CHECKPOINT_DIR)
+    print("download checkpoint", os.stat("/root/.cache/checkpoints/lineart.bin").st_size, torch.__version__)
+    loaded_learned_embeds = torch.load("/root/.cache/checkpoints/lineart.bin", map_location="cpu")
+    print("download checkpoint success", loaded_learned_embeds)
 

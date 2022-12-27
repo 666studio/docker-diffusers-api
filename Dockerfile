@@ -134,15 +134,15 @@ ENV CHECKPOINT_URL=${CHECKPOINT_URL}
 ARG CHECKPOINT_CONFIG_URL=""
 ENV CHECKPOINT_CONFIG_URL=${CHECKPOINT_CONFIG_URL}
 
-RUN apt-get update && apt-get install -yqq wget
-RUN wget -q -O /root/.cache/checkpoints/lineart.bin https://huggingface.co/sd-concepts-library/one-line-drawing/blob/main/learned_embeds.bin
-
 ADD download-checkpoint.py .
 RUN python3 download-checkpoint.py
 ARG _CONVERT_SPECIAL
 ENV _CONVERT_SPECIAL=${_CONVERT_SPECIAL}
 ADD convert-to-diffusers.py .
 RUN python3 convert-to-diffusers.py
+
+RUN apt-get update && apt-get install -yqq wget
+RUN wget -q -O /root/.cache/checkpoints/lineart.bin https://huggingface.co/sd-concepts-library/one-line-drawing/blob/main/learned_embeds.bin
 
 # RUN rm -rf checkpoints
 
