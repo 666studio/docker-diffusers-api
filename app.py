@@ -207,7 +207,7 @@ def inference(all_inputs: dict) -> dict:
         pipeline = model
 
     print("checkpoint folder", [(f, os.stat(os.path.join("/root/.cache/checkpoints/", f)).st_size) for f in os.listdir("/root/.cache/checkpoints/")])
-    load_learned_embed_in_clip("/root/.cache/checkpoints/lineart.bin", pipeline.text_encoder, pipeline.tokenizer)
+    load_learned_embed_in_clip("/root/.cache/checkpoints/kawaii.bin", pipeline.text_encoder, pipeline.tokenizer)
 
     pipeline.scheduler = getScheduler(MODEL_ID, call_inputs.get("SCHEDULER", None))
     if pipeline.scheduler == None:
