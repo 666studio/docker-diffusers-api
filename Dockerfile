@@ -97,7 +97,7 @@ ENV HF_AUTH_TOKEN=${HF_AUTH_TOKEN}
 # "stabilityai/stable-diffusion-2",
 # "stabilityai/stable-diffusion-2-inpainting" etc.
 # ARG MODEL_ID="stabilityai/stable-diffusion-2"
-ARG MODEL_ID="runwayml/stable-diffusion-inpainting"
+ARG MODEL_ID="stabilityai/stable-diffusion-2-inpainting"
 ENV MODEL_ID=${MODEL_ID}
 
 # "" = model default.

@@ -12,3 +12,4 @@ if __name__ == "__main__":
         if not os.path.isfile(fname):
             storage = Storage(CHECKPOINT_URL)
             storage.download_file(fname)
+            

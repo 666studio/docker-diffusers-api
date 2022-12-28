@@ -8,7 +8,6 @@ from transformers import CLIPTextModel, CLIPTokenizer
 from precision import revision
 from utils import Storage
 import subprocess
-import torch
 
 MODEL_ID = os.environ.get("MODEL_ID")
 MODEL_URL = os.environ.get("MODEL_URL")
@@ -58,7 +57,3 @@ def download_model():
 
 if __name__ == "__main__":
     download_model()
-    # print("download checkpoint", os.stat("/root/.cache/checkpoints/kawaii.bin").st_size, torch.__version__)
-    # loaded_learned_embeds = torch.load("/root/.cache/checkpoints/kawaii.bin", map_location="cpu")
-    # print("download checkpoint success", loaded_learned_embeds)
-
