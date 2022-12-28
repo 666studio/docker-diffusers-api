@@ -74,7 +74,6 @@ def load_learned_embed_in_clip(learned_embeds_path, text_encoder, tokenizer, tok
   
   # separate token and the embeds
   trained_token = list(loaded_learned_embeds.keys())[0]
-  print("loaded", loaded_learned_embeds, trained_token)
   embeds = loaded_learned_embeds[trained_token]
 
   # cast to dtype of text_encoder
@@ -84,7 +83,6 @@ def load_learned_embed_in_clip(learned_embeds_path, text_encoder, tokenizer, tok
   # add the token in tokenizer
   token = token if token is not None else trained_token
   num_added_tokens = tokenizer.add_tokens(token)
-  print("load token", token)
   if num_added_tokens == 0:
     raise ValueError(f"The tokenizer already contains the token {token}. Please pass a different `token` that is not already in the tokenizer.")
   
@@ -94,7 +92,6 @@ def load_learned_embed_in_clip(learned_embeds_path, text_encoder, tokenizer, tok
   # get the id for the token and assign the embeds
   token_id = tokenizer.convert_tokens_to_ids(token)
   text_encoder.get_input_embeddings().weight.data[token_id] = embeds
-  print("load token id", token_id)
 
 
 # Init is ran on server startup
@@ -200,10 +197,10 @@ def inference(all_inputs: dict) -> dict:
                 }
             }
 
-    style = call_inputs.get("STYLE", None)
-    print("checkpoint folder", style, [(f, os.stat(os.path.join("/root/.cache/checkpoints/", f)).st_size) for f in os.listdir("/root/.cache/checkpoints/")])
-    if style:
-        load_learned_embed_in_clip(f"/root/.cache/checkpoints/{style}.bin", model.text_encoder, model.tokenizer)
+    # style = call_inputs.get("STYLE", None)
+    # print("checkpoint folder", style, [(f, os.stat(os.path.join("/root/.cache/checkpoints/", f)).st_size) for f in os.listdir("/root/.cache/checkpoints/")])
+    # if style:
+    #     load_learned_embed_in_clip(f"/root/.cache/checkpoints/{style}.bin", model.text_encoder, model.tokenizer)
 
     if PIPELINE == "ALL":
         pipeline = pipelines.get(call_inputs.get("PIPELINE"))

@@ -97,7 +97,7 @@ ENV HF_AUTH_TOKEN=${HF_AUTH_TOKEN}
 # "stabilityai/stable-diffusion-2",
 # "stabilityai/stable-diffusion-2-inpainting" etc.
 # ARG MODEL_ID="stabilityai/stable-diffusion-2"
-ARG MODEL_ID="CompVis/stable-diffusion-v1-4"
+ARG MODEL_ID="runwayml/stable-diffusion-inpainting"
 ENV MODEL_ID=${MODEL_ID}
 
 # "" = model default.
@@ -141,26 +141,26 @@ ENV _CONVERT_SPECIAL=${_CONVERT_SPECIAL}
 ADD convert-to-diffusers.py .
 RUN python3 convert-to-diffusers.py
 
-RUN apt-get update && apt-get install -yqq wget
-RUN wget -q -O /root/.cache/checkpoints/kawaii.bin https://huggingface.co/sd-concepts-library/kawaii-girl-plus-style-v1-1/resolve/main/learned_embeds.bin
-RUN wget -q -O /root/.cache/checkpoints/midjourney-style.bin https://huggingface.co/sd-concepts-library/midjourney-style/resolve/main/learned_embeds.bin
-RUN wget -q -O /root/.cache/checkpoints/hitokomoru-style.bin https://huggingface.co/sd-concepts-library/hitokomoru-style-nao/resolve/main/learned_embeds.bin
-RUN wget -q -O /root/.cache/checkpoints/kuvshinov.bin https://huggingface.co/sd-concepts-library/kuvshinov/resolve/main/learned_embeds.bin
-RUN wget -q -O /root/.cache/checkpoints/depthmap.bin https://huggingface.co/sd-concepts-library/depthmap/resolve/main/learned_embeds.bin
-RUN wget -q -O /root/.cache/checkpoints/agm-style.bin https://huggingface.co/sd-concepts-library/agm-style-nao/resolve/main/learned_embeds.bin
-RUN wget -q -O /root/.cache/checkpoints/wlop-style.bin https://huggingface.co/sd-concepts-library/wlop-style/resolve/main/learned_embeds.bin
-RUN wget -q -O /root/.cache/checkpoints/line-art.bin https://huggingface.co/sd-concepts-library/line-art/resolve/main/learned_embeds.bin
-RUN wget -q -O /root/.cache/checkpoints/gta5-artwork.bin https://huggingface.co/sd-concepts-library/gta5-artwork/resolve/main/learned_embeds.bin
-RUN wget -q -O /root/.cache/checkpoints/dishonored-portrait-styles.bin https://huggingface.co/sd-concepts-library/dishonored-portrait-styles/resolve/main/learned_embeds.bin
-RUN wget -q -O /root/.cache/checkpoints/dr-strange.bin https://huggingface.co/sd-concepts-library/dr-strange/resolve/main/learned_embeds.bin
-RUN wget -q -O /root/.cache/checkpoints/madhubani-art.bin https://huggingface.co/sd-concepts-library/madhubani-art/resolve/main/learned_embeds.bin
-RUN wget -q -O /root/.cache/checkpoints/hiten-style-nao.bin https://huggingface.co/sd-concepts-library/hiten-style-nao/resolve/main/learned_embeds.bin
-RUN wget -q -O /root/.cache/checkpoints/malika-favre.bin https://huggingface.co/sd-concepts-library/malika-favre-art-style/resolve/main/learned_embeds.bin
-RUN wget -q -O /root/.cache/checkpoints/xyz.bin https://huggingface.co/sd-concepts-library/xyz/resolve/main/learned_embeds.bin
-RUN wget -q -O /root/.cache/checkpoints/m-geo.bin https://huggingface.co/sd-concepts-library/m-geo/resolve/main/learned_embeds.bin
-RUN wget -q -O /root/.cache/checkpoints/lineart.bin https://huggingface.co/sd-concepts-library/one-line-drawing/resolve/main/learned_embeds.bin
-RUN wget -q -O /root/.cache/checkpoints/cat-toy.bin https://huggingface.co/sd-concepts-library/tudisco/resolve/main/learned_embeds.bin
-RUN wget -q -O /root/.cache/checkpoints/retro-girl.bin https://huggingface.co/sd-concepts-library/retro-girl/resolve/main/learned_embeds.bin
+# RUN apt-get update && apt-get install -yqq wget
+# RUN wget -q -O /root/.cache/checkpoints/kawaii.bin https://huggingface.co/sd-concepts-library/kawaii-girl-plus-style-v1-1/resolve/main/learned_embeds.bin
+# RUN wget -q -O /root/.cache/checkpoints/midjourney-style.bin https://huggingface.co/sd-concepts-library/midjourney-style/resolve/main/learned_embeds.bin
+# RUN wget -q -O /root/.cache/checkpoints/hitokomoru-style.bin https://huggingface.co/sd-concepts-library/hitokomoru-style-nao/resolve/main/learned_embeds.bin
+# RUN wget -q -O /root/.cache/checkpoints/kuvshinov.bin https://huggingface.co/sd-concepts-library/kuvshinov/resolve/main/learned_embeds.bin
+# RUN wget -q -O /root/.cache/checkpoints/depthmap.bin https://huggingface.co/sd-concepts-library/depthmap/resolve/main/learned_embeds.bin
+# RUN wget -q -O /root/.cache/checkpoints/agm-style.bin https://huggingface.co/sd-concepts-library/agm-style-nao/resolve/main/learned_embeds.bin
+# RUN wget -q -O /root/.cache/checkpoints/wlop-style.bin https://huggingface.co/sd-concepts-library/wlop-style/resolve/main/learned_embeds.bin
+# RUN wget -q -O /root/.cache/checkpoints/line-art.bin https://huggingface.co/sd-concepts-library/line-art/resolve/main/learned_embeds.bin
+# RUN wget -q -O /root/.cache/checkpoints/gta5-artwork.bin https://huggingface.co/sd-concepts-library/gta5-artwork/resolve/main/learned_embeds.bin
+# RUN wget -q -O /root/.cache/checkpoints/dishonored-portrait-styles.bin https://huggingface.co/sd-concepts-library/dishonored-portrait-styles/resolve/main/learned_embeds.bin
+# RUN wget -q -O /root/.cache/checkpoints/dr-strange.bin https://huggingface.co/sd-concepts-library/dr-strange/resolve/main/learned_embeds.bin
+# RUN wget -q -O /root/.cache/checkpoints/madhubani-art.bin https://huggingface.co/sd-concepts-library/madhubani-art/resolve/main/learned_embeds.bin
+# RUN wget -q -O /root/.cache/checkpoints/hiten-style-nao.bin https://huggingface.co/sd-concepts-library/hiten-style-nao/resolve/main/learned_embeds.bin
+# RUN wget -q -O /root/.cache/checkpoints/malika-favre.bin https://huggingface.co/sd-concepts-library/malika-favre-art-style/resolve/main/learned_embeds.bin
+# RUN wget -q -O /root/.cache/checkpoints/xyz.bin https://huggingface.co/sd-concepts-library/xyz/resolve/main/learned_embeds.bin
+# RUN wget -q -O /root/.cache/checkpoints/m-geo.bin https://huggingface.co/sd-concepts-library/m-geo/resolve/main/learned_embeds.bin
+# RUN wget -q -O /root/.cache/checkpoints/lineart.bin https://huggingface.co/sd-concepts-library/one-line-drawing/resolve/main/learned_embeds.bin
+# RUN wget -q -O /root/.cache/checkpoints/cat-toy.bin https://huggingface.co/sd-concepts-library/tudisco/resolve/main/learned_embeds.bin
+# RUN wget -q -O /root/.cache/checkpoints/retro-girl.bin https://huggingface.co/sd-concepts-library/retro-girl/resolve/main/learned_embeds.bin
 
 
 # RUN rm -rf checkpoints
