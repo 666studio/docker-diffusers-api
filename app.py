@@ -292,6 +292,8 @@ def inference(all_inputs: dict) -> dict:
             }
         last_xformers_memory_efficient_attention.update({pipeline: x_m_e_a})
 
+    print("enabled attention")
+    
     # Run the model
     # with autocast("cuda"):
     # image = pipeline(**model_inputs).images[0]
@@ -323,6 +325,7 @@ def inference(all_inputs: dict) -> dict:
         generator = torch.Generator(device="cuda").manual_seed(seed)
         del model_inputs["seed"]
 
+    print("enabled generator", generator)
     model_inputs.update({"generator": generator})
 
     with torch.inference_mode():
