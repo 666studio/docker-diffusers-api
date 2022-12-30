@@ -73,8 +73,8 @@ RUN pip install -r requirements.txt
 # ENV TORCH_CUDA_ARCH_LIST="7.5 8.0 8.6"
 
 RUN git clone https://github.com/huggingface/diffusers
-WORKDIR /api/diffusers
-RUN git checkout v0.9.0
+# WORKDIR /api/diffusers
+# RUN git checkout v0.9.0
 WORKDIR /api
 RUN pip install -e diffusers
 
