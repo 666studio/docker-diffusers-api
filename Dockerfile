@@ -75,9 +75,8 @@ RUN pip install -r requirements.txt
 RUN git clone https://github.com/huggingface/diffusers
 # WORKDIR /api/diffusers
 # RUN git checkout v0.9.0
+COPY inpaint.py /api/diffusers/src/diffusers/pipelines/stable_diffusion/pipeline_stable_diffusion_inpaint.py
 WORKDIR /api
-ADD inpaint.py .
-RUN cp inpaint.py /api/diffusers/src/diffusers/pipelines/stable_diffusion/pipeline_stable_diffusion_inpaint.py
 RUN pip install -e diffusers
 
 # We add the banana boilerplate here
