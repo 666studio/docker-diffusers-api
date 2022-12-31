@@ -37,6 +37,7 @@ PIPELINES = [
     "StableDiffusionImg2ImgPipeline",
     "StableDiffusionInpaintPipeline",
     "StableDiffusionInpaintPipelineLegacy",
+    "CycleDiffusionPipeline",
 ]
 
 torch.set_grad_enabled(False)
