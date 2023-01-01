@@ -110,7 +110,7 @@ ADD precision.py .
 ARG PIPELINE="ALL"
 ENV PIPELINE=${PIPELINE}
 
-ARG USE_DREAMBOOTH=1
+ARG USE_DREAMBOOTH=0
 ENV USE_DREAMBOOTH=${USE_DREAMBOOTH}
 
 ARG AWS_ACCESS_KEY_ID
@@ -174,7 +174,7 @@ ADD download.py .
 RUN python3 download.py
 
 # Deps for RUNNING (not building) earlier options
-ARG USE_PATCHMATCH=0
+ARG USE_PATCHMATCH=1
 RUN if [ "$USE_PATCHMATCH" = "1" ] ; then apt-get install -yqq python3-opencv ; fi
 COPY --from=patchmatch /tmp/PyPatchMatch PyPatchMatch
 
