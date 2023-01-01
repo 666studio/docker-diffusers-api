@@ -35,7 +35,7 @@ from .safety_checker import StableDiffusionSafetyChecker
 logger = logging.get_logger(__name__)  # pylint: disable=invalid-name
 
 
-def prepare_mask_and_masked_image(image, mask):
+def prepare_mask_and_masked_image(image, mask, strength):
     """
     Prepares a pair (image, mask) to be consumed by the Stable Diffusion pipeline. This means that those inputs will be
     converted to ``torch.Tensor`` with shapes ``batch x channels x height x width`` where ``channels`` is ``3`` for the
@@ -134,7 +134,7 @@ def prepare_mask_and_masked_image(image, mask):
         mask[mask >= 0.5] = 1
         mask = torch.from_numpy(mask)
 
-    masked_image = image * (mask < 0.5)
+    masked_image = image * (mask < 0.5) * strength + image * (1 - strength)
 
     return mask, masked_image
 
@@ -645,10 +645,8 @@ class StableDiffusionInpaintPipeline(DiffusionPipeline):
         )
 
         # 4. Preprocess mask and image
-        mask, masked_image = prepare_mask_and_masked_image(image, mask_image)
+        mask, masked_image = prepare_mask_and_masked_image(image, mask_image, strength)
 
-        masked_image = strength * masked_image + (1 - strength) * image
-        
         # 5. set timesteps
         self.scheduler.set_timesteps(num_inference_steps, device=device)
         timesteps = self.scheduler.timesteps
